@@ -1,6 +1,7 @@
 import { instance } from 'helper/helper';
 import moment from 'moment/moment';
 import { useState, useEffect } from 'react';
+import { toast } from 'react-toastify';
 import TodoForm from './TodoForm';
 import TodoTable from './TodoTable';
 
@@ -14,26 +15,29 @@ const Todo = ({ listSelected }) => {
 
   const addTodo = async (e) => {
     e.preventDefault();
-    if (formValues?.title && formValues?.date)
-      try {
-        let values = {
-          title: formValues?.title,
-          date: formValues?.date,
-          isCompleted: false,
-          listId: listSelected?._id,
-        };
-        const result = await instance.post('/todo', values);
-        if (result.status === 201) {
-          setFormValues({
-            title: '',
-            date: '',
-          });
-          setSelectedTodo(null);
-          getTodosByList(listSelected?._id);
-        }
-      } catch (error) {
-        console.log({ error });
+    if (!formValues?.title || !formValues?.date)
+      return toast.error('Please enter the values!');
+    try {
+      let values = {
+        title: formValues?.title,
+        date: formValues?.date,
+        isCompleted: false,
+        listId: listSelected?._id,
+      };
+      const result = await instance.post('/todo', values);
+      if (result.status === 201) {
+        setFormValues({
+          title: '',
+          date: '',
+        });
+        setSelectedTodo(null);
+        getTodosByList(listSelected?._id);
+        toast('Wow so easy!');
+        toast.success('Todo', 'Todo added successfully!');
       }
+    } catch (error) {
+      console.log({ error });
+    }
   };
 
   const handleEdit = (todo) => {
@@ -61,24 +65,23 @@ const Todo = ({ listSelected }) => {
 
   const updateList = async (e) => {
     e.preventDefault();
-    if (formValues?.title && formValues?.date) {
-      const values = {
-        ...selectedTodo,
-        title: formValues?.title,
-      };
-      try {
-        const result = await instance.put(`/todo/${values?._id}`, values);
-        if (result.status === 200) {
-          setFormValues({
-            title: '',
-            date: '',
-          });
-          setSelectedTodo(null);
-          getTodosByList(listSelected?._id);
-        }
-      } catch (error) {
-        console.log({ error });
+    if (!formValues?.title) return toast.error('Please enter the values!');
+    const values = {
+      ...selectedTodo,
+      title: formValues?.title,
+    };
+    try {
+      const result = await instance.put(`/todo/${values?._id}`, values);
+      if (result.status === 200) {
+        setFormValues({
+          title: '',
+          date: '',
+        });
+        setSelectedTodo(null);
+        getTodosByList(listSelected?._id);
       }
+    } catch (error) {
+      console.log({ error });
     }
   };
 

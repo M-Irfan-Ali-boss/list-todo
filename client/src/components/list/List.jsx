@@ -1,5 +1,6 @@
 import { instance } from 'helper/helper';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 import ListForm from './ListForm';
 import ListTable from './ListTable';
 
@@ -9,17 +10,18 @@ const List = ({ lists, getLists, setListSelected }) => {
 
   const addList = async (e) => {
     e.preventDefault();
-    if (list)
-      try {
-        const result = await instance.post('/list', { name: list });
-        if (result.status === 201) {
-          setList('');
-          setSelectedList(null);
-          getLists();
-        }
-      } catch (error) {
-        console.log({ error });
+    if (!list) return toast.error('Please enter the list.');
+    try {
+      const result = await instance.post('/list', { name: list });
+      if (result.status === 201) {
+        setList('');
+        setSelectedList(null);
+        getLists();
+        toast.success('List added successfully!');
       }
+    } catch (error) {
+      console.log({ error });
+    }
   };
 
   const handleEdit = (list) => {
@@ -29,28 +31,31 @@ const List = ({ lists, getLists, setListSelected }) => {
 
   const updateList = async (e) => {
     e.preventDefault();
-    if (list) {
-      const values = {
-        ...selectedList,
-        name: list,
-      };
-      try {
-        const result = await instance.put(`/list/${values?._id}`, values);
-        if (result.status === 200) {
-          setList('');
-          setSelectedList(null);
-          getLists();
-        }
-      } catch (error) {
-        console.log({ error });
+    if (!list) return toast.error('Please enter the list.');
+    const values = {
+      ...selectedList,
+      name: list,
+    };
+    try {
+      const result = await instance.put(`/list/323232`, values);
+      if (result.status === 200) {
+        setList('');
+        setSelectedList(null);
+        getLists();
+        toast.success('List updated successfully!');
       }
+    } catch (error) {
+      console.log({ error });
     }
   };
 
   const handleDelete = async (listId) => {
     try {
       const result = await instance.delete(`/list/${listId}`);
-      if (result.status === 200) getLists();
+      if (result.status === 200) {
+        toast.success('List and their todos deleted successfully!');
+        getLists();
+      }
     } catch (error) {
       console.log({ error });
     }

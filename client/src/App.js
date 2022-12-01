@@ -2,6 +2,8 @@ import List from 'components/list/List';
 import Todo from 'components/todo/Todo';
 import { instance } from 'helper/helper';
 import { useEffect, useState } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   const [lists, setLists] = useState([]);
@@ -37,6 +39,7 @@ function App() {
           {listSelected && <Todo listSelected={listSelected} />}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 }
