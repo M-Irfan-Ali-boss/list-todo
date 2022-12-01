@@ -12,6 +12,10 @@ app.use(cors());
 
 const port = process.env.PORT || 4200;
 
+app.get('/', (req, res) => {
+  res.stauts(200).send('Server is up!');
+});
+
 app.listen(
   port,
   mongoose
