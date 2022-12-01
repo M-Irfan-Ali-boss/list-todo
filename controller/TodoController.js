@@ -58,7 +58,7 @@ export const deleteTodo = async (req, res) => {
     const result = await Todo.deleteOne({ _id: todoId });
     if (+result?.deletedCount !== 1)
       return res.status(500).send({ error: 'Something went wrong!' });
-    res.status(410).send({ message: 'Todo deleted successfully!' });
+    res.status(200).send({ message: 'Todo deleted successfully!' });
   } catch (error) {
     res.status(500).send({ error });
   }
