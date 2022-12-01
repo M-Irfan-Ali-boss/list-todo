@@ -1,18 +1,33 @@
-const ListTable = () => {
+const TodoTable = () => {
   return (
-    <div className='listTable w-full border-2 border-gray-200  rounded-lg shadow-md overflow-hidden'>
+    <div className='todoTable col-span-2 w-full border-2 border-gray-200  rounded-lg shadow-md overflow-hidden'>
       <table className='w-full'>
-        <tr className='p-3 px-5 border-1 border-b border-gray-200 w-full grid grid-cols-5 gap-4'>
-          <td className='col-span-3 text-gray-800 font-bold text-md'>Name</td>
+        <tr className='p-3 px-5 border-1 border-b border-gray-200 w-full grid grid-cols-7 gap-4'>
+          <td className='text-gray-800 font-bold text-md'>Completed</td>
+          <td className='col-span-3 text-gray-800 font-bold text-md'>Title</td>
+          <td className='text-gray-800 font-bold text-md'>Date</td>
           <td className='text-gray-800 font-bold text-md'>Edit</td>
           <td className='text-gray-800 font-bold text-md'>Delete</td>
         </tr>
         {[1, 2, 3]?.map((list) => (
           <tr
             key={`ListKey${list}`}
-            className='group hover:bg-gray-700 p-3 px-5 border-1 border-b border-gray-200 w-full grid grid-cols-5 gap-4'>
+            className='group hover:bg-gray-700 p-3 px-5 border-1 border-b border-gray-200 w-full grid grid-cols-7 gap-4'>
+            <td>
+              <button className='text-red-500 text-sm'>
+                <svg width='16' height='16' viewBox='0 0 24 24'>
+                  <path
+                    fill='currentColor'
+                    d='M23 20.168l-8.185-8.187 8.185-8.174-2.832-2.807-8.182 8.179-8.176-8.179-2.81 2.81 8.186 8.196-8.186 8.184 2.81 2.81 8.203-8.192 8.18 8.192z'
+                  />
+                </svg>
+              </button>
+            </td>
             <td className='col-span-3 text-gray-700 text-base group-hover:text-white'>
-              List #{list}
+              Todo #{list}
+            </td>
+            <td className='text-gray-700 text-base group-hover:text-white'>
+              Nov 1{list},2022
             </td>
             <td>
               <button className='text-blue-500 text-sm'>
@@ -41,4 +56,4 @@ const ListTable = () => {
   );
 };
 
-export default ListTable;
+export default TodoTable;

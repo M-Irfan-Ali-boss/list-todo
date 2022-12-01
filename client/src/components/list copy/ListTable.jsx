@@ -3,9 +3,9 @@ const ListTable = () => {
     <div className='listTable w-full border-2 border-gray-200  rounded-lg shadow-md overflow-hidden'>
       <table className='w-full'>
         <tr className='p-3 px-5 border-1 border-b border-gray-200 w-full grid grid-cols-5 gap-4'>
-          <td className='col-span-3 text-gray-800 font-bold text-md'>Name</td>
-          <td className='text-gray-800 font-bold text-md'>Edit</td>
-          <td className='text-gray-800 font-bold text-md'>Delete</td>
+          <td className='col-span-3 text-gray-800 font-bold text-lg'>Name</td>
+          <td className='text-gray-800 font-bold text-lg'>Edit</td>
+          <td className='text-gray-800 font-bold text-lg'>Delete</td>
         </tr>
         {[1, 2, 3]?.map((list) => (
           <tr
