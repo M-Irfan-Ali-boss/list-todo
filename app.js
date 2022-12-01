@@ -6,6 +6,7 @@ import cors from 'cors';
 dotenv.config();
 
 import listRoutes from './routes/ListRoutes.js';
+import todoRoutes from './routes/TodoRoutes.js';
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -14,12 +15,9 @@ app.use(cors());
 
 const port = process.env.PORT || 4200;
 
-// app.get('/', (req, res) => {
-//   res.status(200).send('Server is up!');
-// });
-
 //Routes
 app.use('/api/v1/list', listRoutes);
+app.use('/api/v1/todo', todoRoutes);
 
 app.listen(
   port,

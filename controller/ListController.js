@@ -1,5 +1,6 @@
 import Joi from 'joi';
 import List from '../models/ListModel.js';
+import Todo from '../models/TodoModel.js';
 
 const addListValidSchema = Joi.object({
   name: Joi.string().required(),
@@ -43,6 +44,7 @@ export const updateList = async (req, res) => {
 export const deleteList = async (req, res) => {
   const { listId } = req.params;
   try {
+    const todos = await Todo.deleteMany({ listId: listId });
     const result = await List.deleteOne({ _id: listId });
     if (+result?.deletedCount !== 1)
       return res.status(500).send({ error: 'Something went wrong!' });
