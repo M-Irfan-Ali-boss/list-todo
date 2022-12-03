@@ -37,7 +37,7 @@ const List = ({ lists, getLists, setListSelected }) => {
       name: list,
     };
     try {
-      const result = await instance.put(`/list/323232`, values);
+      const result = await instance.put(`/list/${values?._id}`, values);
       if (result.status === 200) {
         setList('');
         setSelectedList(null);
@@ -53,8 +53,10 @@ const List = ({ lists, getLists, setListSelected }) => {
     try {
       const result = await instance.delete(`/list/${listId}`);
       if (result.status === 200) {
-        toast.success('List and their todos deleted successfully!');
+        setListSelected(null);
         getLists();
+        toast.success('List and their todos deleted successfully!');
+        console.log('Test');
       }
     } catch (error) {
       console.log({ error });
